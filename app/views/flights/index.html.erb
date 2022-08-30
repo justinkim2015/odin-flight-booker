@@ -1,0 +1,11 @@
+<%= form_with(url: flights_path, method: "get") do %>
+  <%= select_tag(:departure_airport, options_for_select(@departure_airports)) %>
+  <%= select_tag(:arrival_airport, options_for_select(@arrival_airports)) %>
+  <%= select_tag(:number_of_passengers, options_for_select([[1, 1], [2, 2], [3, 3], [4, 4]])) %>
+  <%= select_tag(:departure_date, options_for_select(@departure_date)) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<% @flights.where("departure_airport_id = ?", params[:departure_airport]).each do |flight| %>
+  <%= flight.departure_airport.airport_code %> - <%= flight.start_time %> <br>
+<% end %>

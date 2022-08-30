@@ -13,21 +13,38 @@ Flight.destroy_all
 hnl = Airport.create(airport_code: 'HNL')
 hnd = Airport.create(airport_code: 'HND')
 nrt = Airport.create(airport_code: 'NRT')
-lax = Airport.create(airport_code: 'LAX')
-bkk = Airport.create(airport_code: 'BKK')
 fuk = Airport.create(airport_code: 'FUK')
 
-now = Time.now
-one_year_later = Time.now + 60 * 60 * 24 * 365
-random_time = rand(now..one_year_later)
-airports = [hnl, hnd, nrt, lax, bkk, fuk]
+def make_flights(start_id, finish_id, length)
+  now = Time.now
+  one_year_later = Time.now + 60 * 60 * 24 * 365
 
-def random_airport(arr)
-  arr.sample
+  2.times do
+    Flight.create(departure_airport_id: start_id,
+                  arrival_airport_id: finish_id,
+                  start_time: rand(now..one_year_later),
+                  flight_duration: length)
+  end
 end
 
-10.times do
-  Flight.create(departure_airport_id: random_airport(airports).id, arrival_airport_id: random_airport(airports).id, start_time: random_time, flight_duration: rand(100..600))
-end
+# Honolulu/Narita
+make_flights(hnl.id, nrt.id, 7 * 60)
+make_flights(nrt.id, hnl.id, 9 * 60)
+
+# Honolulu/Haneda
+make_flights(hnl.id, hnd.id, 7 * 60)
+make_flights(hnd.id, hnl.id, 9 * 60)
+
+# Honolulu/Fukuoka
+make_flights(hnl.id, fuk.id, 9 * 60)
+make_flights(fuk.id, hnl.id, 11 * 60)
+
+#Fukuoka/Haneda
+make_flights(fuk.id, hnd.id, 140)
+make_flights(hnd.id, fuk.id, 140)
+
+#Fukuoka/Narita
+make_flights(fuk.id, nrt.id, 140)
+make_flights(nrt.id, fuk.id, 140)
 
 puts "Seeding done. #{hnl.id}"
