@@ -10,8 +10,6 @@
 
 <%= form_with(url: flights_path, method: "get") do |form| %>
   <% @params_flights.each do |flight| %>
-    <%# check the first 9 digits of the string, and if its the same display it to check only the date, the time can be displayed below %>
-    <%# This is not great because it goes over every single flight  %>
     <% if params[:start_time] == flight.start_time.to_s[0..9] %>
       <br>
       <%= form.radio_button :flight, flight %>
@@ -22,3 +20,12 @@
 <% end %>
 
 <%# Next thing to do, find a way to display, no flights if there are no flights, and a way to only display the submit button when the list of flights comes up %>
+
+<br><br><br><br><br>
+----TESTINGTESTING-----
+<br><br>
+<% @time.each do |flight| %>
+  <%= flight %>
+<% end %>
+
+"start_time"=>"2022-08-31 15:23:08 UTC" - flight_id = 8
