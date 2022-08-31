@@ -17,12 +17,14 @@ fuk = Airport.create(airport_code: 'FUK')
 
 def make_flights(start_id, finish_id, length)
   now = Time.now
-  one_year_later = Time.now + 60 * 60 * 24 * 365
+  # one_year_later = Time.now + 60 * 60 * 24 * 365
+  # one_week_later = Time.now + 60 * 60 * 24 * 7
+  three_days = Time.now + 60 * 60 * 24 * 3
 
-  2.times do
+  10.times do
     Flight.create(departure_airport_id: start_id,
                   arrival_airport_id: finish_id,
-                  start_time: rand(now..one_year_later),
+                  start_time: rand(now..three_days),
                   flight_duration: length)
   end
 end

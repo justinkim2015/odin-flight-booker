@@ -1,11 +1,24 @@
+<h1>Flights</h1>
+
 <%= form_with(url: flights_path, method: "get") do %>
-  <%= select_tag(:departure_airport, options_for_select(@departure_airports)) %>
-  <%= select_tag(:arrival_airport, options_for_select(@arrival_airports)) %>
+  <%= select_tag(:departure_airport, options_for_select(@departure_airports.uniq)) %>
+  <%= select_tag(:arrival_airport, options_for_select(@arrival_airports.uniq)) %>
   <%= select_tag(:number_of_passengers, options_for_select([[1, 1], [2, 2], [3, 3], [4, 4]])) %>
-  <%= select_tag(:departure_date, options_for_select(@departure_date)) %>
+  <%= select_tag(:start_time, options_for_select(@start_time.uniq)) %>
   <%= submit_tag("Search") %>
 <% end %>
 
-<% @flights.where("departure_airport_id = ?", params[:departure_airport]).each do |flight| %>
-  <%= flight.departure_airport.airport_code %> - <%= flight.start_time %> <br>
+<%= form_with(url: flights_path, method: "get") do |form| %>
+  <% @params_flights.each do |flight| %>
+    <%# check the first 9 digits of the string, and if its the same display it to check only the date, the time can be displayed below %>
+    <%# This is not great because it goes over every single flight  %>
+    <% if params[:start_time] == flight.start_time.to_s[0..9] %>
+      <br>
+      <%= form.radio_button :flight, flight %>
+      <%= form.label :flight, flight.display_info %>
+    <% end %>
+  <% end %>
+  <%= form.submit%>
 <% end %>
+
+<%# Next thing to do, find a way to display, no flights if there are no flights, and a way to only display the submit button when the list of flights comes up %>

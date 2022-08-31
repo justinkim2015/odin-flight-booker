@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Hi guys, I'm having trouble with getting my start_time for the flights.  Right now I'm just trying to get the flights where the start time matches the start time of the flight in my DB.  However no matter what I do it's not finding the data I need.  
 
-Things you may want to cover:
+I think the reason is because the format of the date in my parameters don't match the format of the date in my database.  The database saves the object as a TimeWithZone but my parameters has the information as a string but I'm not sure how to fix this.
 
-* Ruby version
+```Parameters: {"departure_airport"=>"1", "arrival_airport"=>"3", "number_of_passengers"=>"1", "start_time"=>"2022-08-31 23:13:33 UTC", "commit"=>"Search"}```
 
-* System dependencies
+In my parameters the start_time is formatted with the year first, but if I run
 
-* Configuration
+```Flight.first.start_time = Wed, 31 Aug 2022 23:13:33.429568000 UTC +00:00```
 
-* Database creation
+It returns something with the day, written out first.  
 
-* Database initialization
+The following is my code for my dropdown menu and the query I'm using to look for the object.
 
-* How to run the test suite
+```
+<%= select_tag(:start_time, options_for_select(@start_time)) %>
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+@time = Flight.where("start_time = ?", params[:start_time])
+```
