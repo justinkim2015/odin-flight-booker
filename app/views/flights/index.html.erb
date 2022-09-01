@@ -10,20 +10,14 @@
 
 <% unless @params_flights.empty? || params[:flight_date].nil? %>
   <%= form_with(url: new_booking_path, method: "get") do |form| %>
-    <%= form.collection_radio_buttons :flights, @params_flights, :id, :flight_date %>
-    <%# MAYBE THIS ABOVE IS A WAY TO SOLVE IT BUT IDK %>
-    <br>
-
     <% @params_flights.each do |flight| %>
       <br>
-      <%= form.radio_button :flight, :flight => { id: flight.id, num_pass: params[:number_of_passengers].to_i } %>
-      <%= THIS NESTED ARRAY ABOVE IS BEING PASSED AS A STRING SO I CANT ACCESS THE INSIDE OF IT%>
+      <%= form.radio_button :flight_id, flight.id%>
       <%= form.label :flight, flight.display_info %>
+      <%= form.hidden_field :number_of_passengers, value: params[:number_of_passengers] %>
     <% end %>
     <%= form.submit%>
   <% end %>
 <% else %>
   <h2>No flights available :(</h2>
 <% end %>
-
-<%# NEXT THING TO WORK ON, FIGURE OUT HOW TO SEND NUMBER OF PASSENGERS TO THE BOOKINGS CONTROLLER %>
