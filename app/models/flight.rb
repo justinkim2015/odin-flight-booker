@@ -25,4 +25,8 @@ class Flight < ApplicationRecord
   def display_info
     "#{departure_loc} -> #{arrival_loc}: #{pretty_date} / #{pretty_time}"
   end
+
+  def self.find_flight(params)
+    Flight.all.all_departures(params[:departure_airport]).all_arrivals(params[:arrival_airport]).all_times(params[:start_time])
+  end
 end
