@@ -2,6 +2,9 @@ class Flight < ApplicationRecord
   belongs_to :departure_airport, class_name: "Airport"
   belongs_to :arrival_airport, class_name: "Airport"
 
+  has_many :bookings
+  has_many :passengers, through: :bookings 
+
   scope :all_departures, ->(departure) { where("departure_airport_id = ?", departure) }
   scope :all_arrivals, ->(arrival) { where("arrival_airport_id = ?", arrival) }
   scope :all_times, ->(time) { where("start_time = ?", time)}
