@@ -3,7 +3,8 @@ class FlightsController < ApplicationController
     @flights = Flight.all
     @departure_airports = Flight.all.map { |flight| [flight.departure_loc, flight.departure_airport_id] }
     @arrival_airports = Flight.all.map { |flight| [flight.arrival_loc, flight.arrival_airport_id] }
-    @start_time = Flight.all.order(:start_time).map { |flight| [flight.start_time, flight.start_time.to_s[0..18]] }
+    # @start_time = Flight.all.order(:start_time).map { |flight| [flight.start_time, flight.start_time.to_s[0..18]] }
+    @flight_date = Flight.all.order(:flight_date).map { |flight| [flight.flight_date, flight.flight_date] }
     
     @params_flights = @flights.find_flight(params)
   end

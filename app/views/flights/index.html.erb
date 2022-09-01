@@ -4,11 +4,11 @@
   <%= select_tag(:departure_airport, options_for_select(@departure_airports.uniq)) %>
   <%= select_tag(:arrival_airport, options_for_select(@arrival_airports.uniq)) %>
   <%= select_tag(:number_of_passengers, options_for_select([[1, 1], [2, 2], [3, 3], [4, 4]])) %>
-  <%= select_tag(:start_time, options_for_select(@start_time.uniq)) %>
+  <%= select_tag(:flight_date, options_for_select(@flight_date.uniq)) %>
   <%= submit_tag("Search") %>
 <% end %>
 
-<% unless @params_flights.empty? || params[:start_time].nil? %>
+<% unless @params_flights.empty? || params[:flight_date].nil? %>
   <%= form_with(url: flights_path, method: "get") do |form| %>
     <% @params_flights.each do |flight| %>
       <br>
