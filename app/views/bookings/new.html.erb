@@ -1,8 +1,14 @@
+<%= @flight.display_info %> <br>
+<%="#{@flight.pretty_date} - #{@flight.pretty_time}" %>
+
+<br>
+
+<% @pass_num.times do |i| %>
+  <%= "Passenger number #{i+1}" %>
+  <br>
+<% end %>
 
 <br><br><br><br><br><br>
 -testing-
 <br>
-
 <%= params %> <br>
-<%= params[:flight_id] %> <br>
-<%= params[:number_of_passengers] %>
