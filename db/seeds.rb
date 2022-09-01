@@ -24,7 +24,7 @@ def make_flights(start_id, finish_id, length)
   1.times do
     Flight.create(departure_airport_id: start_id,
                   arrival_airport_id: finish_id,
-                  start_time: rand(now..three_days),
+                  start_time: rand(now..three_days).round,
                   flight_duration: length)
   end
 end

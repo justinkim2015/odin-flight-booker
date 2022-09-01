@@ -8,24 +8,16 @@
   <%= submit_tag("Search") %>
 <% end %>
 
-<%= form_with(url: flights_path, method: "get") do |form| %>
-  <% @params_flights.each do |flight| %>
-    <% if params[:start_time] == flight.start_time.to_s[0..9] %>
+<% unless @params_flights.empty? || params[:start_time].nil? %>
+  <%= form_with(url: flights_path, method: "get") do |form| %>
+    <% @params_flights.each do |flight| %>
       <br>
       <%= form.radio_button :flight, flight %>
       <%= form.label :flight, flight.display_info %>
     <% end %>
+    <%= form.submit%>
+    <%= params %>
   <% end %>
-  <%= form.submit%>
+<% else %>
+  <h2>No flights available :(</h2>
 <% end %>
-
-<%# Next thing to do, find a way to display, no flights if there are no flights, and a way to only display the submit button when the list of flights comes up %>
-
-<br><br><br><br><br>
-----TESTINGTESTING-----
-<br><br>
-<% @time.each do |flight| %>
-  <%= flight %>
-<% end %>
-
-"start_time"=>"2022-08-31 15:23:08 UTC" - flight_id = 8
