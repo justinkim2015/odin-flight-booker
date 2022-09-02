@@ -5,17 +5,15 @@
 
 <%= form_with model: @booking do |form| %>
   Passengers:
-  <% @pass_num.times do |i|%>
-    <ul>
-      <%= form.fields_for :passenger do |pass_f| %>
-        <%= pass_f.label :name %>
-        <%= pass_f.text_field :name %>
+  <ul>
+    <%= form.fields_for :passenger do |pass_f| %>
+      <%= pass_f.label :name %>
+      <%= pass_f.text_field :name %>
 
-        <%= pass_f.label :email %>
-        <%= pass_f.text_field :email %>
-      <% end %>
-    </ul>
-  <% end %>
+      <%= pass_f.label :email %>
+      <%= pass_f.text_field :email %>
+    <% end %>
+  </ul>
   <%= form.submit %>
 <% end %>
 

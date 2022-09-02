@@ -10,8 +10,21 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @booking = Booking.new
-    @booking.save
+    @booking = Booking.new(bookings_params)
+    @booking.flight_id = 1
+    passenger = Passenger.create(name: params[:booking][:passenger_attributes][:name], 
+                                 email: params[:booking][:passenger_attributes][:email])
+    @booking.passenger_id = passenger.id
+
+    if @booking.save
+      redirect_to booking_path(@booking.id)
+    else
+      render new_booking_path, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @booking = Booking.find(params[:id])
   end
 
   private
