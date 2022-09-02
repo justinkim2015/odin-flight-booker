@@ -1,12 +1,24 @@
 <%= @flight.display_info %> <br>
 <%="#{@flight.pretty_date} - #{@flight.pretty_time}" %>
 
-<br>
+<br><br>
 
-<% @pass_num.times do |i| %>
-  <%= "Passenger number #{i+1}" %>
-  <br>
+<%= form_with model: @booking do |form| %>
+  Passengers:
+  <% @pass_num.times do |i|%>
+    <ul>
+      <%= form.fields_for :passenger do |pass_f| %>
+        <%= pass_f.label :name %>
+        <%= pass_f.text_field :name %>
+
+        <%= pass_f.label :email %>
+        <%= pass_f.text_field :email %>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form.submit %>
 <% end %>
+
 
 <br><br><br><br><br><br>
 -testing-
