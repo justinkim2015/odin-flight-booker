@@ -5,8 +5,10 @@
 
 <%= form_with model: @booking do |form| %>
   Passengers:
+  <%= form.hidden_field :flight_id, value: params[:flight_id] %>
+  <%= form.hidden_field :num_pass, value: params[:number_of_passengers] %>
   <ul>
-    <%= form.fields_for :passenger do |pass_f| %>
+    <%= form.fields_for :passengers do |pass_f| %>
       <%= pass_f.label :name %>
       <%= pass_f.text_field :name %>
 

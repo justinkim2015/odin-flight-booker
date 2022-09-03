@@ -2,5 +2,7 @@
 
 <br>
 
-<%= @booking.passenger.display_info %>
+<% @booking.passengers.each do |passenger| %>
+  <%= passenger.name %>
+<% end %>
 

@@ -3,20 +3,19 @@ class BookingsController < ApplicationController
     @flight = Flight.find(params[:flight_id])
     @pass_num = params[:number_of_passengers].to_i
 
-    # @booking = Booking.new(bookings_params)
     @booking = Booking.new
-    @booking.build_passenger
-    # Maybe I can fix this by having the form be created several times in the view
+    @pass_num.times { @booking.passengers.build }
   end
 
   def create
-    @booking = Booking.new(bookings_params)
-    @booking.flight_id = 1
-    passenger = Passenger.create(name: params[:booking][:passenger_attributes][:name], 
-                                 email: params[:booking][:passenger_attributes][:email])
-    @booking.passenger_id = passenger.id
+    @booking = Booking.new(flight_id: params[:booking][:flight_id])
 
     if @booking.save
+      params[:booking][:num_pass].to_i.times do |i|
+        @booking.passengers.create(name: params[:booking][:passengers_attributes][:"#{i}"][:name],
+                                   email: params[:booking][:passengers_attributes][:"#{i}"][:email])
+      end
+
       redirect_to booking_path(@booking.id)
     else
       render new_booking_path, status: :unprocessable_entity
