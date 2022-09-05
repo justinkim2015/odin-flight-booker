@@ -1,21 +1,12 @@
 # README
 
-Hi guys, I'm having trouble with getting my start_time for the flights.  Right now I'm just trying to get the flights where the start time matches the start time of the flight in my DB.  However no matter what I do it's not finding the data I need.  
+This project was done for TheOdinProject here (https://www.theodinproject.com/lessons/ruby-on-rails-flight-booker).
 
-I think the reason is because the format of the date in my parameters don't match the format of the date in my database.  The database saves the object as a TimeWithZone but my parameters has the information as a string but I'm not sure how to fix this.
+Days taken: 7
+Time taken: 15 hours
 
-```Parameters: {"departure_airport"=>"1", "arrival_airport"=>"3", "number_of_passengers"=>"1", "start_time"=>"2022-08-31 23:13:33 UTC", "commit"=>"Search"}```
+This project is a simple flight booking application intended to practice creating nested forms.  Due to the understanding I developed from the last project (LINK HERE) this project wasn't quite as hard as the last one.  The most difficult part of this project for me was once again correctly setting up my database.  Initially I had the associations set backwards, so my Bookings model couldn't create multiple passengers.  After solving this problem and refactoring the relevant code, the project really came together.
 
-In my parameters the start_time is formatted with the year first, but if I run
+From this project I was able to practice making class methods, scopes, and instance methods in my models and to practice making nested forms.
 
-```Flight.first.start_time = Wed, 31 Aug 2022 23:13:33.429568000 UTC +00:00```
-
-It returns something with the day, written out first.  
-
-The following is my code for my dropdown menu and the query I'm using to look for the object.
-
-```
-<%= select_tag(:start_time, options_for_select(@start_time)) %>
-
-@time = Flight.where("start_time = ?", params[:start_time])
-```
+CNT...
