@@ -1,8 +1,31 @@
-<%= @booking.flight.display_info %>
-
-<br>
-
-<% @booking.passengers.each do |passenger| %>
-  <%= passenger.name %>
-<% end %>
-
+<div class="container is-flex is-flex-direction-column is-align-items-center p-5">
+  <%= render "shared/link" %>
+  <div class="card m-6 p-2">
+    <div class="card-header">
+      <div class="card-header-title">
+        <%= @booking.flight.start_and_finish %>
+      </div>
+    </div>
+  
+    <div class="card-content">
+      <ul>
+        <li class="is-size-5"><%= "Flight time: #{@booking.flight.pretty_time} GMT"  %></li>
+        <li class="is-size-5"><%= "Flight date: #{@booking.flight.flight_date}" %></li>
+      </ul>
+    </div>
+    <div class="card-content pt-0">
+      <ul>
+        <% i = 0 %>
+        <% @booking.passengers.each do |passenger| %>
+          <% i += 1 %>
+          <li><%= "Passenger #{i}: #{passenger.name} - #{passenger.email}" %></li>
+        <% end %>
+      </ul>
+    </div>
+  
+    <div class="card-footer ml-5 pt-3 pb-3">
+      <p class="has-text-weight-semibold">Have a nice trip! :)</p>
+    </div>
+  </div>
+  
+</div>

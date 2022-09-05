@@ -1,26 +1,29 @@
-<%= @flight.display_info %> <br>
-<%="#{@flight.pretty_date} - #{@flight.pretty_time}" %>
-
-<br><br>
-
-<%= form_with model: @booking do |form| %>
-  Passengers:
-  <%= form.hidden_field :flight_id, value: params[:flight_id] %>
-  <%= form.hidden_field :num_pass, value: params[:number_of_passengers] %>
-  <ul>
-    <%= form.fields_for :passengers do |pass_f| %>
-      <%= pass_f.label :name %>
-      <%= pass_f.text_field :name %>
-
-      <%= pass_f.label :email %>
-      <%= pass_f.text_field :email %>
-    <% end %>
-  </ul>
-  <%= form.submit %>
-<% end %>
-
-
-<br><br><br><br><br><br>
--testing-
-<br>
-<%= params %> <br>
+<div class="container is-flex is-flex-direction-column is-align-items-center p-5">
+  <%= render "shared/link" %>
+  <div class="card m-6">
+    <div class="card-header">
+      <div class="card-header-title">
+        <%= "Your flight is #{@flight.start_and_finish} at #{@flight.pretty_time} on #{@flight.flight_date}" %>
+      </div>
+    </div>
+  
+    <div class="card-content">
+      <%= form_with model: @booking do |form| %>
+        Passengers:
+        <%= form.hidden_field :flight_id, value: params[:flight_id] %>
+        <%= form.hidden_field :num_pass, value: params[:number_of_passengers] %>
+        <ul>
+          <%= form.fields_for :passengers do |pass_f| %>
+            <div class="card_content mt-5 mb-3">
+              <%= pass_f.label :name %>
+              <%= pass_f.text_field :name %>
+              <%= pass_f.label :email %>
+              <%= pass_f.text_field :email %>
+            </div>
+          <% end %>
+        </ul>
+        <%= form.submit class: "button is-small is-rounded is-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>

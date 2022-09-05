@@ -10,12 +10,8 @@ class Flight < ApplicationRecord
   scope :all_times, ->(time) { where("start_time = ?", time)}
   scope :all_dates, ->(date) { where("flight_date = ?", date)}
 
-  def pretty_date
-    "#{start_time.month}-#{start_time.day}-#{start_time.year}"
-  end
-
   def pretty_time
-    "#{start_time.hour}:#{start_time.min}"
+    start_time.time.to_s[10..15]
   end
 
   def departure_loc
@@ -27,7 +23,11 @@ class Flight < ApplicationRecord
   end
 
   def display_info
-    "#{departure_loc} -> #{arrival_loc}: #{pretty_date} / #{pretty_time}"
+    "#{departure_loc} -> #{arrival_loc}: #{flight_date} / #{pretty_time}"
+  end
+
+  def start_and_finish
+    "#{departure_loc} -> #{arrival_loc}"
   end
 
   def self.find_flight(params)
