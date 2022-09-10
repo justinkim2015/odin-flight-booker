@@ -8,19 +8,28 @@
     </div>
   
     <div class="card-content">
-      <%= form_with model: @booking do |form| %>
+      <%= form_with model: @booking, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' } do |form| %>
         Passengers:
         <%= form.hidden_field :flight_id, value: params[:flight_id] %>
         <%= form.hidden_field :num_pass, value: params[:number_of_passengers] %>
         <ul>
+          <template data-nested-form-target="template">
+            <%= form.fields_for :passengers do |pass_f| %>
+              <div class="card_content mt-5 mb-3">
+                <%= render "shared/form", f: pass_f %>
+              </div>
+            <% end %>
+          </template>
+
           <%= form.fields_for :passengers do |pass_f| %>
             <div class="card_content mt-5 mb-3">
-              <%= pass_f.label :name %>
-              <%= pass_f.text_field :name %>
-              <%= pass_f.label :email %>
-              <%= pass_f.email_field :email %>
+              <%= render "shared/form", f: pass_f %>
             </div>
           <% end %>
+
+          <div data-nested-form-target="target"></div>
+          <button type="button" data-action="nested-form#add">Add Passenger</button>
+          
         </ul>
         <%= form.submit class: "button is-small is-rounded is-primary" %>
       <% end %>
