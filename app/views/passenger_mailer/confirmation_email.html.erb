@@ -1,0 +1,11 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Congrats on booking your flight!, <%= @passenger.name %></h1>
+    <p>
+      You have successfully booked a flight to <%= @passenger.booking.flight.arrival_airport.airport_code %>,
+    </p>
+  </body>
+</html>
